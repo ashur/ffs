@@ -1,0 +1,26 @@
+{
+  "name": "@ashur/ffs",
+  "version": "0.1.0",
+  "description": "Fake File System",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashur/ffs.git"
+  },
+  "author": "Ashur Cabrera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashur/ffs/issues"
+  },
+  "homepage": "https://github.com/ashur/ffs#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
+  },
+  "dependencies": {
+    "path-browserify": "^1.0.0"
+  }
+}
