@@ -36,6 +36,18 @@ describe( 'Directory', function()
 
 			assert.equal( user.dir, home.path );
 		});
+
+		it( 'should throw if node with matching basename already exists', function()
+		{
+			let home = new Directory( 'home' );
+			home.dir = '/';
+
+			home.addNode( new Directory( 'ashur' ) );
+			assert.throws( () =>
+			{
+				home.addNode( new Directory( 'ashur' ) );
+			});
+		});
 	});
 
 	describe( '#findNode', function()

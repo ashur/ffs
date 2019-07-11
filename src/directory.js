@@ -16,6 +16,11 @@ class Directory extends Node
 	 */
 	addNode( node )
 	{
+		if( this.findNode( node.base ) !== undefined )
+		{
+			throw new Error( 'File exists' );
+		}
+
 		node.dir = this.path;
 		this.nodes.push( node );
 		return node;
