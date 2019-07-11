@@ -1,4 +1,5 @@
 const Directory = require( './directory' );
+const pppath = require( 'path-browserify' );
 
 class FileSystem
 {
@@ -10,6 +11,11 @@ class FileSystem
 
 	getNodeFromPath( pathname )
 	{
+		if( !pppath.isAbsolute( pathname ) )
+		{
+			throw new Error( 'Absolute path required, relative given' );
+		}
+
 		let pathSegments = pathname.split( '/' );
 		pathSegments.shift();
 
