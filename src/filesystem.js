@@ -21,7 +21,7 @@ class FileSystem
 				let nextNode = currentNode.findNode( pathSegment );
 				if( nextNode === null )
 				{
-					throw new Exception( 'No such file or directory' );
+					throw new Error( 'No such file or directory' );
 				}
 
 				currentNode = nextNode;
