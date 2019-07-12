@@ -1,5 +1,6 @@
 const ffs = require( './filesystem' );
 const File = require( './file' );
+const pppath = require( 'path-browserify' );
 
 class Shell
 {
@@ -11,8 +12,13 @@ class Shell
 
 	cd( pathname )
 	{
-		let currentDirectory = this.filesystem.getNodeFromPath( pathname );
+		let absolutePathname = pathname;
+		if( !pppath.isAbsolute( pathname ) )
+		{
+			absolutePathname = pppath.join( this.currentDirectory.path, pathname );
+		}
 
+		let currentDirectory = this.filesystem.getNodeFromPath( absolutePathname );
 		if( currentDirectory instanceof File )
 		{
 			throw new Error( 'Not a directory' );

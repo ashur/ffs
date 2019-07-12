@@ -52,8 +52,10 @@ describe( 'Shell', function()
 				.addNode( new Directory( 'ashur' ) )
 
 			shell.cd( '/home/ashur' );
+			assert.equal( shell.cwd.path, '/home/ashur', 'change to nested directory' );
 
-			assert.equal( shell.cwd.path, '/home/ashur' );
+			shell.cd( '/' );
+			assert.equal( shell.cwd.path, '/', 'change to root' );
 		});
 
 		it( 'should support relative targets', function()
@@ -67,11 +69,17 @@ describe( 'Shell', function()
 		
 			shell.cd( 'home' );
 			assert.equal( shell.cwd.path, '/home' );
-		
+
 			shell.cd( 'ashur' );
 			assert.equal( shell.cwd.path, '/home/ashur' );
-		
-			shell.cd( '../../' );
+
+			shell.cd( '../' );
+			assert.equal( shell.cwd.path, '/home' );
+
+			shell.cd( '../' );
+			assert.equal( shell.cwd.path, '/' );
+
+			shell.cd( '../' );
 			assert.equal( shell.cwd.path, '/' );
 		});
 	});
