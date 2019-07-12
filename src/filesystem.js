@@ -16,8 +16,9 @@ class FileSystem
 			throw new Error( 'Absolute path required, relative given' );
 		}
 
-		let pathSegments = pathname.split( '/' );
-		pathSegments.shift();
+		/* Don't include empty segments produced by leading and trailing slashes */
+		let pathSegments = pathname.split( '/' )
+			.filter( segment => segment !== '' );
 
 		let currentNode = this.root;
 		for( let pathSegment of pathSegments )
