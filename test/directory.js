@@ -12,7 +12,7 @@ describe( 'Directory', function()
 		});
 	});
 
-	describe( '#addNode', function()
+	describe( '#add', function()
 	{
 		it( 'should add node to nodes array', function()
 		{
@@ -20,7 +20,7 @@ describe( 'Directory', function()
 			root.dir = '/';
 
 			let home = new Directory( 'home' );
-			root.addNode( home );
+			root.add( home );
 
 			assert.equal( root.nodes.length, 1 );
 			assert.equal( root.nodes[0], home );
@@ -32,7 +32,7 @@ describe( 'Directory', function()
 			home.dir = '/';
 
 			let user = new Directory( 'ashur' );
-			home.addNode( user );
+			home.add( user );
 
 			assert.equal( user.dir, home.path );
 		});
@@ -42,22 +42,22 @@ describe( 'Directory', function()
 			let home = new Directory( 'home' );
 			home.dir = '/';
 
-			home.addNode( new Directory( 'ashur' ) );
+			home.add( new Directory( 'ashur' ) );
 			assert.throws( () =>
 			{
-				home.addNode( new Directory( 'ashur' ) );
+				home.add( new Directory( 'ashur' ) );
 			});
 		});
 	});
 
-	describe( '#findNode', function()
+	describe( '#find', function()
 	{
 		it( 'should return undefined if no match found', function()
 		{
 			let root = new Directory( '' );
 			root.dir = '/';
 
-			assert.isUndefined( root.findNode( 'home' ) );
+			assert.isUndefined( root.find( 'home' ) );
 		});
 
 		it( 'should return object with matching basename', function()
@@ -66,12 +66,12 @@ describe( 'Directory', function()
 			home.dir = '/';
 
 			let ashur = new Directory( 'ashur' );
-			home.addNode( ashur );
+			home.add( ashur );
 
 			let charlie = new Directory( 'charlie' );
-			home.addNode( charlie );
+			home.add( charlie );
 
-			assert.equal( charlie, home.findNode( 'charlie' ) );
+			assert.equal( charlie, home.find( 'charlie' ) );
 		});
 	});
 });

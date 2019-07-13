@@ -23,9 +23,9 @@ class FileSystem
 		let currentNode = this.root;
 		for( let pathSegment of pathSegments )
 		{
-			if( currentNode.findNode )
+			if( currentNode.find )
 			{
-				let nextNode = currentNode.findNode( pathSegment );
+				let nextNode = currentNode.find( pathSegment );
 				if( nextNode === null )
 				{
 					throw new Error( 'No such file or directory' );

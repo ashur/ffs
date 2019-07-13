@@ -14,9 +14,9 @@ class Directory extends Node
 	 *
 	 * @param Node node
 	 */
-	addNode( node )
+	add( node )
 	{
-		if( this.findNode( node.base ) !== undefined )
+		if( this.find( node.base ) !== undefined )
 		{
 			throw new Error( 'File exists' );
 		}
@@ -32,7 +32,7 @@ class Directory extends Node
 	 * @param string base
 	 * @return Node
 	 */
-	findNode( base )
+	find( base )
 	{
 		return this.nodes.find( node => node.base === base );
 	}

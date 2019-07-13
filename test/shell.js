@@ -34,7 +34,7 @@ describe( 'Shell', function()
 			let filesystem = new FileSystem();
 			let shell = new Shell( filesystem );
 
-			filesystem.root.addNode( new File( 'README.md' ) );
+			filesystem.root.add( new File( 'README.md' ) );
 
 			assert.throws( () =>
 			{
@@ -48,8 +48,8 @@ describe( 'Shell', function()
 			let shell = new Shell( filesystem );
 
 			filesystem.root
-				.addNode( new Directory( 'home' ) )
-				.addNode( new Directory( 'ashur' ) )
+				.add( new Directory( 'home' ) )
+				.add( new Directory( 'ashur' ) )
 
 			shell.cd( '/home/ashur' );
 			assert.equal( shell.cwd.path, '/home/ashur', 'change to nested directory' );
@@ -64,8 +64,8 @@ describe( 'Shell', function()
 			let shell = new Shell( filesystem );
 		
 			filesystem.root
-				.addNode( new Directory( 'home' ) )
-				.addNode( new Directory( 'ashur' ) )
+				.add( new Directory( 'home' ) )
+				.add( new Directory( 'ashur' ) )
 		
 			shell.cd( 'home' );
 			assert.equal( shell.cwd.path, '/home' );
