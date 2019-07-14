@@ -13,7 +13,7 @@ class FileSystem
 	{
 		if( !pppath.isAbsolute( pathname ) )
 		{
-			throw new Error( 'Absolute path required, relative given' );
+			throw new Error( 'absolute path required, relative given' );
 		}
 
 		/* Don't include empty segments produced by leading and trailing slashes */
@@ -26,9 +26,9 @@ class FileSystem
 			if( currentNode.find )
 			{
 				let nextNode = currentNode.find( pathSegment );
-				if( nextNode === null )
+				if( nextNode === undefined )
 				{
-					throw new Error( 'No such file or directory' );
+					throw new Error( `no such file or directory: ${pathname}` );
 				}
 
 				currentNode = nextNode;
