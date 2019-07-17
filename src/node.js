@@ -1,22 +1,18 @@
 const pppath = require( 'path-browserify' );
+const Directory = require( './directory' );
 
 class Node
 {
-	constructor( base, readable=true )
+	constructor( basename, dirname, readable=true )
 	{
-		this.dir = null;
-		this.base = base;
+		this.basename = basename;
+		this.dirname = dirname;
 		this.readable = readable;
 	}
 
 	get path()
 	{
-		if( this.dir === null )
-		{
-			throw new Error( 'dir undefined' );
-		}
-
-		return pppath.join( this.dir, this.base );
+		return pppath.join( this.dirname, this.basename );
 	}
 }
 

@@ -1,32 +1,16 @@
 const assert = require( 'chai' ).assert;
+const Directory = require( '../src/directory' );
 const FileSystem = require( '../src/filesystem' );
 
 describe( 'FileSystem', function()
 {
-	describe( '#getNodeFromPath', function()
+	describe( '#root', function()
 	{
-		it( 'should throw if path is relative', function()
+		it( 'should be a Directory object', function()
 		{
 			let filesystem = new FileSystem();
-			assert.throws( () =>
-			{
-				filesystem.getNodeFromPath( 'home' );
-			});
-		});
-
-		it( 'should throw if path is invalid', function()
-		{
-			let filesystem = new FileSystem();
-			assert.throws( () =>
-			{
-				filesystem.getNodeFromPath( '/invalid/path' );
-			});
-		});
-
-		it( 'should return Node instance', function()
-		{
-			let filesystem = new FileSystem();
-			assert.equal( filesystem.getNodeFromPath( '/' ), filesystem.root );
+			assert.instanceOf( filesystem.root, Directory );
+			assert.equal( filesystem.root.path, '/' );
 		});
 	});
 });

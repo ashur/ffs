@@ -1,11 +1,11 @@
 const Node = require( './node' );
+const pppath = require( 'path-browserify' );
 
 class Directory extends Node
 {
-	constructor( base )
+	constructor( basename, dirname )
 	{
-		super( base );
-
+		super( basename, dirname );
 		this.nodes = [];
 	}
 
@@ -16,25 +16,51 @@ class Directory extends Node
 	 */
 	add( node )
 	{
-		if( this.find( node.base ) !== undefined )
+		if( this.find( node.basename ) !== undefined )
 		{
 			throw new Error( 'File exists' );
 		}
 
-		node.dir = this.path;
+		node.dirname = this.path;
 		this.nodes.push( node );
 		return node;
 	}
 
 	/**
-	 * Returns the Node object whose basename matches the `base` parameter.
+	 * Return Node object found described by path
 	 * 
-	 * @param string base
+	 * @param string pathname
 	 * @return Node
 	 */
-	find( base )
+	find( pathname )
 	{
-		return this.nodes.find( node => node.base === base );
+		let pathSegments = pathname.split( '/' )
+			.filter( segment => segment !== '' ) // Don't include empty segments produced by leading and trailing slashes
+	
+		let basename = pathSegments.shift();
+		let match = this.nodes.find( node => node.basename === basename );
+	
+		if( match )
+		{
+			if( pathSegments.length > 0 )
+			{
+				return match.find( pathSegments.join( '/' ) );
+			}
+			else
+			{
+				return match;
+			}
+		}
+	}
+
+	/**
+	 * Return Directory object representing parent
+	 * @return Directory
+	 */
+	get parent()
+	{
+		let parent = pppath.parse( this.dirname );
+		return new Directory( parent.base, parent.dir );
 	}
 }
 
