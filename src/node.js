@@ -14,6 +14,16 @@ class Node
 	{
 		return pppath.join( this.dirname, this.basename );
 	}
+
+	/**
+	 * Set dirname
+	 * @param {String} dirname
+	 * @see Directory.setDirname
+	 */
+	setDirname( dirname )
+	{
+		this.dirname = dirname;
+	}
 }
 
 module.exports = Node;

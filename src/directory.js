@@ -21,7 +21,8 @@ class Directory extends Node
 			throw new Error( 'File exists' );
 		}
 
-		node.dirname = this.path;
+		node.setDirname( this.path );
+
 		this.nodes.push( node );
 		return node;
 	}
@@ -61,6 +62,20 @@ class Directory extends Node
 	{
 		let parent = pppath.parse( this.dirname );
 		return new Directory( parent.base, parent.dir );
+	}
+
+	/**
+	 * Set dirname on all Node objects in nodes array
+	 * @param String dirname
+	 */
+	setDirname( dirname )
+	{
+		super.setDirname( dirname );
+
+		this.nodes.forEach( node =>
+		{
+			node.setDirname( this.path );
+		});
 	}
 }
 

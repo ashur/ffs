@@ -34,13 +34,24 @@ describe( 'Directory', function()
 			assert.equal( root.nodes[0], home );
 		});
 
-		it( 'should set parent path as child dir', function()
+		it( 'should set path as dirname of child nodes', function()
 		{
-			let home = new Directory( 'home', '/' );
-			let user = new Directory( 'ashur' );
-			home.add( user );
+			let root = new Directory( "", "/" );
+			let home = new Directory( "home" );
+			let user = new Directory( "ashur" );
+			let bots = new Directory( "bots" );
 
-			assert.equal( user.dirname, home.path );
+			user.add( bots );
+			assert.equal( bots.dirname, "ashur", "adding 'bots' to 'ashur' should set dirname" );
+
+			home.add( user );
+			assert.equal( user.dirname, "home", "adding 'user' to 'home' should set dirname" );
+			assert.equal( bots.dirname, "home/ashur", "adding 'user' to 'home' should update 'bots' dirname" );
+
+			root.add( home );
+			assert.equal( home.dirname, "/", "adding 'home' to 'root' should set dirname" );
+			assert.equal( user.dirname, "/home", "adding 'home' to 'root' should update 'user' dirname" );
+			assert.equal( bots.dirname, "/home/ashur", "adding 'home' to 'root' should update 'bots' dirname" );
 		});
 
 		it( 'should throw if node with matching basename already exists', function()
