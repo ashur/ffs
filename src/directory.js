@@ -36,10 +36,10 @@ class Directory extends Node
 	{
 		let pathSegments = pathname.split( '/' )
 			.filter( segment => segment !== '' ) // Don't include empty segments produced by leading and trailing slashes
-	
+
 		let basename = pathSegments.shift();
 		let match = this.nodes.find( node => node.basename === basename );
-	
+
 		if( match )
 		{
 			if( pathSegments.length > 0 )
