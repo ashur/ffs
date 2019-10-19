@@ -15,6 +15,12 @@ describe( 'Node', function()
 
 	describe( '#dirname', function()
 	{
+		it( 'should default to empty string', function()
+		{
+			let node = new Node( "foo.txt" );
+			assert.equal( node.dirname, "" );
+		});
+
 		it( 'should return string', function()
 		{
 			let node = new Node( 'foo.txt', '/home/ashur' );

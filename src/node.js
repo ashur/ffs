@@ -3,7 +3,7 @@ const Directory = require( './directory' );
 
 class Node
 {
-	constructor( basename, dirname, readable=true )
+	constructor( basename, dirname="", readable=true )
 	{
 		this.basename = basename;
 		this.dirname = dirname;
