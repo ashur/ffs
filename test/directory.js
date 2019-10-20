@@ -1,5 +1,6 @@
 const assert = require( 'chai' ).assert;
 const Directory = require( '../src/directory' );
+const File = require( '../src/file' );
 
 describe( 'Directory', function()
 {
@@ -82,10 +83,24 @@ describe( 'Directory', function()
 			let ashur = new Directory( 'ashur' );
 			home.add( ashur );
 
-			let charlie = new Directory( 'charlie' );
+			let charlie = new File( 'charlie' );
 			home.add( charlie );
 
 			assert.equal( home.find( 'charlie' ), charlie );
+		});
+
+		it( "should throw if path segment is not a directory", () =>
+		{
+			let root = new Directory( "", "/" );
+
+			root.add( new Directory( "home" ) )
+				.add( new File( "file" ) );
+
+			assert.throws( () =>
+			{
+				root.find( "/home/file/bots" );
+
+			}, "'file' is not a directory" );
 		});
 	});
 });

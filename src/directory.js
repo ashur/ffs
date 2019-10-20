@@ -39,17 +39,28 @@ class Directory extends Node
 			.filter( segment => segment !== '' ) // Don't include empty segments produced by leading and trailing slashes
 
 		let basename = pathSegments.shift();
-		let match = this.nodes.find( node => node.basename === basename );
+		let matchingNode = this.nodes.find( node => node.basename === basename );
 
-		if( match )
+		if( matchingNode )
 		{
+			// We haven't exhausted all path segments yet, need to call find again
 			if( pathSegments.length > 0 )
 			{
-				return match.find( pathSegments.join( '/' ) );
+				if( matchingNode instanceof Directory )
+				{
+					return matchingNode.find( pathSegments.join( '/' ) );
+				}
+
+				// Attempting to call find on a non-Directory Node will fail
+				// ex., "/home/ashur/README.md/foo"
+				else
+				{
+					throw new Error( `'${basename}' is not a directory` );
+				}
 			}
 			else
 			{
-				return match;
+				return matchingNode;
 			}
 		}
 	}
